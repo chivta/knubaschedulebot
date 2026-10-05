@@ -1,0 +1,5 @@
+.git
+.env
+.tmp/
+data/
+k8s/secrets.yaml
