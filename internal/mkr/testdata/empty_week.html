@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <meta name="csrf-param" content="_csrf-frontend">
+<meta name="csrf-token" content="fNGN0vNugFGMN4athagu-KRZ6ZiiTE-t-8L0Bhp1T7wSubu1vUPCZLVd1cjn41mw3HS2wMoBJ9earaNoUD4ljA==">
+    <title>Розклад: Академ. групи </title>
+    <link href="/assets/fe669208/css/select2.min.css?v=1676456992" rel="stylesheet">
+<link href="/assets/427df06a/select2-bootstrap4.min.css?v=1676457030" rel="stylesheet">
+<link href="/assets/15d563e2/daterangepicker.css?v=1590309201" rel="stylesheet">
+<link href="/assets/4afb6611/css/bootstrap4-toggle.min.css?v=1676457021" rel="stylesheet">
+<link href="/assets/20a24cec/lesson-type.css?v=1676456940" rel="stylesheet">
+<link href="/assets/83997a98/style.css?v=1612400635" rel="stylesheet">
+<link href="/assets/3955a8e9/noty.css?v=1676457020" rel="stylesheet">
+<link href="/assets/e90a6f3a/css/all.min.css?v=1738051652" rel="stylesheet">
+<link href="/assets/d3015fc7/sbadmin2-extra.css?v=1676456940" rel="stylesheet">
+<link href="/assets/bd7b5e7/sb-admin-2.min.css?v=1691985370" rel="stylesheet">
+<link href="/assets/e5682222/app.css?v=1738051507" rel="stylesheet">
+<link href="/assets/20a24cec/spinner.css?v=1612400635" rel="stylesheet"></head>
+
+<body
+        id="page-top" >
+
+<div id="wrapper">
+    <ul id="accordionSidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion "><a class="sidebar-brand d-flex align-items-center justify-content-center" href="/"><div class="sidebar-brand-icon"><img src="/icon.png" height="48px" alt=""></div></a><hr class="sidebar-divider my-0"><li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-fw fa-home"></i><span>Головна</span></a></li><hr class="sidebar-divider"><div class="sidebar-heading">Сервіси</div><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#w7-collapse1" aria-expanded="false" aria-controls="w7-collapse1"><i class="fas fa-fw fa-vote-yea"></i><span>Вибіркові дисципліни</span></a><div id="w7-collapse1" class="menu collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/subscription/catalog">Каталог</a>
+</div>
+</div></li>
+<li class="nav-item active"><a class="nav-link" href="#" data-toggle="collapse" data-target="#w7-collapse2" aria-expanded="false" aria-controls="w7-collapse2"><i class="fas fa-fw fa-calendar"></i><span>Розклад</span></a><div id="w7-collapse2" class="menu collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/time-table/student">Студента</a>
+<a class="collapse-item active" href="/time-table/group">Академ. групи</a>
+<a class="collapse-item" href="/time-table/teacher">Викладача</a>
+<a class="collapse-item" href="/time-table/classroom">Аудиторії</a>
+<a class="collapse-item" href="/time-table/free-classroom">Вільні аудиторії</a>
+<a class="collapse-item" href="/time-table/chair">Кафедри</a>
+</div>
+</div></li>
+<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#w7-collapse3" aria-expanded="false" aria-controls="w7-collapse3"><i class="fas fa-fw fa-chalkboard-teacher"></i><span>Успішність</span></a><div id="w7-collapse3" class="menu collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/progress/scholarship-rating">Стипендіальний рейтинг</a>
+<a class="collapse-item" href="/progress/rating">Загальний рейтинг</a>
+</div>
+</div></li>
+<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#w7-collapse4" aria-expanded="false" aria-controls="w7-collapse4"><i class="fas fa-fw fa-briefcase"></i><span>Робочий план</span></a><div id="w7-collapse4" class="menu collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/workplan/speciality">Спеціальності</a>
+</div>
+</div></li>
+<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#w7-collapse5" aria-expanded="false" aria-controls="w7-collapse5"><i class="fas fa-fw fa-list"></i><span>Список</span></a><div id="w7-collapse5" class="menu collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/list/group">Академ. групи</a>
+<a class="collapse-item" href="/list/virtual-group">Віртуальної групи</a>
+<a class="collapse-item" href="/list/stream">Потоку</a>
+<a class="collapse-item" href="/list/chair">Кафедри</a>
+<a class="collapse-item" href="/list/subscription">Дисципліни за записом</a>
+</div>
+</div></li>
+<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#w7-collapse6" aria-expanded="false" aria-controls="w7-collapse6"><i class="fas fa-fw fa-globe"></i><span>Інше</span></a><div id="w7-collapse6" class="menu collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+<div class="bg-white py-2 collapse-inner rounded">
+<a class="collapse-item" href="/other/phones">Телефонний довідник</a>
+</div>
+</div></li><hr class="sidebar-divider"><div class="mobile-link-block"><div class="sidebar-heading">Мобільний розклад</div><a class="d-block mx-3" href="https://play.google.com/store/apps/details?id=com.mkr.shedule_app" target="_blank"><img class="rounded mt-1" src="/images/googleplay.png" width="100%" alt=""></a><a class="d-block mx-3" href="https://itunes.apple.com/us/app/%D1%80%D0%B0%D1%81%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B9-%D0%BC%D0%BA%D1%80/id1382175045?l=uk&amp;ls=1&amp;mt=8" target="_blank"><img class="rounded mt-1 mb-1" src="/images/appstore.png" width="100%" alt=""></a><hr class="sidebar-divider"></div><div class="sidebar-heading text-center mb-2">5 жовтня 2026 р. о 22:50:46 UTC</div><hr class="sidebar-divider"><div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        
+<nav class="navbar navbar-expand bg-white topbar mb-3 static-top shadow" role="navigation">
+
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+
+    <div class="header text-center ml-md-auto h2 d-none d-md-block">
+        Київський національний університет будівництва i архітектури    </div>
+
+    <ul class="navbar-nav ml-auto">
+                <li class="topbar-divider d-none d-sm-block"></li>
+                <li class="nav-item dropdown no-arrow">
+            <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Українська <span class="caret"></span></a><div class="dropdown-menu"><a class="dropdown-item" href="/language?app_language=en">English</a><a class="dropdown-item" href="/language?app_language=ru">Русский</a><a class="active dropdown-item" href="/language?app_language=uk">Українська</a></div>        </li>
+        <li class="topbar-divider d-none d-sm-block"></li><li class="nav-item mx-1"><a class="nav-link" href="/profile"><i class="fa-fw mr-1 fas fa-paper-plane" title="Реєстрація у чат-боті Telegram"></i></a></li>        <li class="topbar-divider d-none d-sm-block"></li>
+                    <li class="nav-item dropdown no-arrow">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    Авторизація <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="/login"><i class="mr-2 fas fa-sign-in-alt"></i>Увійти</a>                </div>
+            </li>
+            </ul>
+</nav>
+
+        <div class="container-fluid">
+            <h1 class="h3 mb-1 text-gray-800" style="display:none">Розклад: Академ. групи </h1><nav aria-label="breadcrumb"><ol id="w8" class="breadcrumb"><li class="breadcrumb-item"><a href="/">Головна</a></li>
+<li class="breadcrumb-item active" aria-current="page">Розклад</li>
+<li class="breadcrumb-item active" aria-current="page">Академ. групи</li>
+</ol></nav><div id="w1"><div id="w2" class="card shadow mb-2"><div class="card-body"><form id="filter-form" class="filter-form" action="/time-table/group?type=0" method="POST">
+<input type="hidden" name="_csrf-frontend" value="fNGN0vNugFGMN4athagu-KRZ6ZiiTE-t-8L0Bhp1T7wSubu1vUPCZLVd1cjn41mw3HS2wMoBJ9earaNoUD4ljA=="><div class="filter-form-fields-content row"><div class="form-group col-md-3"><label>Структура</label><select id="timetableform-structureid" class="form-control select2-field" name="TimeTableForm[structureId]">
+<option value="">--Структура--</option>
+<option value="0" selected>Київський національний університет будівництва i архітектури </option>
+<option value="1">Інститут інноваційної освіти КНУБА</option>
+</select></div><div class="form-group col-md-3"><label>Факультет</label><select id="timetableform-facultyid" class="form-control select2-field" name="TimeTableForm[facultyId]">
+<option value="">--Факультет--</option>
+<option value="2">Архітектурний факультет (АФ)</option>
+<option value="3">Будівельний факультет (БФ)</option>
+<option value="4">Будівельно-технологічний факультет (БТФ)</option>
+<option value="5">Факультет інженерних систем та екології (ФІСЕ)</option>
+<option value="6" selected>Факультет автоматизації і інформаційних технологій (ФАІТ)</option>
+<option value="7">Факультет геоінформаційних систем управління територіями (ГІСУТ)</option>
+<option value="8">Факультет урбаністики та просторового планування (ФУПП)</option>
+<option value="11">Аспірантура</option>
+<option value="10">Study for foreign students</option>
+<option value="9">Підготовче відділення для іноземних громадян</option>
+<option value="12">Інститут інноваційної освіти КНУБА</option>
+</select></div><div class="form-group col-md-1"><label>Курс</label><select id="timetableform-course" class="form-control select2-field" name="TimeTableForm[course]">
+<option value="">--Курс--</option>
+<option value="1">1</option>
+<option value="2" selected>2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select></div><div class="form-group col-md-2"><label>Група</label><select id="timetableform-groupid" class="form-control select2-field" name="TimeTableForm[groupId]">
+<option value="">--Група--</option>
+<option value="2307">ІЛС-25</option>
+<option value="2287">ІПЗм-25</option>
+<option value="2308">ІСТ-25</option>
+<option value="2289">ІСТ-ШІКТм-25</option>
+<option value="2288">ІСТм-25</option>
+<option value="2312">АКІТ-25</option>
+<option value="2291">АКІТм-25</option>
+<option value="2314">БІКС-25</option>
+<option value="2293">БІКСм-25</option>
+<option value="2316">ВДЕ-25</option>
+<option value="2318">ГМ-25</option>
+<option value="2294">ГМм-25</option>
+<option value="2321">ЕСА-25</option>
+<option value="2296">ЕСАм-25</option>
+<option value="2286">ІЛСм-25</option>
+<option value="2323" selected>КН-25-1</option>
+<option value="2324">КН-25-2</option>
+<option value="2298">КН-УПм-25</option>
+<option value="2297">КНм-25</option>
+<option value="2325">КСМ-25</option>
+<option value="2300">КСМм-25</option>
+<option value="2301">МН-УПм-25</option>
+<option value="2326">ПНБ-25</option>
+<option value="2327">ПНК-25</option>
+<option value="2303">ПНКм-25</option>
+<option value="2328">ПНМ-25</option>
+<option value="2586">зАКІТ-25</option>
+<option value="2292">зАКІТм-25</option>
+<option value="2320">зГМ-25</option>
+<option value="2295">зГМм-25</option>
+<option value="2654">зЕСАм-25</option>
+<option value="2299">зКН-УПм-25</option>
+<option value="2302">зМН-УПм-25</option>
+<option value="2353">зПНМ -25</option>
+<option value="2392">ІПЗм(д)-25</option>
+<option value="2290">ІСТ-ШІКТм(д)-25</option>
+<option value="2386">ІСТд-25</option>
+<option value="2384">БІКСд-25</option>
+<option value="2385">БІКСмд-25</option>
+<option value="2383">КН-УПм(д)-25</option>
+<option value="2381">КНд-25</option>
+<option value="2382">КНмд-25</option>
+<option value="2388">КСМд-25</option>
+<option value="2380">МН-УПм(д)-25</option>
+</select></div></div><div class="filter-form-extra-fields-content row"><div class="form-group col-md-3"><label>Діапазон дат</label><input type="text" id="timetableform-datestart" class="form-control submit" name="date-picker" value="">
+<input type="hidden" id="timetableform-datestart" class="form-control submit" name="TimeTableForm[dateStart]" value="04.01.2027">
+<input type="hidden" id="timetableform-datestart" class="form-control submit" name="TimeTableForm[dateEnd]" value="10.01.2027">
+</div><div class="form-group col-md-2 col-sm-4"><label for="timetableform-indicationdays">Індикація змін (днів)</label><input type="number" id="timetableform-indicationdays" class="form-control submit" name="TimeTableForm[indicationDays]" value="5" style="background:#36b9cc"></div><div class="form-group col-md-2 col-sm-4 align-self-end"><input type="checkbox" id="w0" name="time-table-type" value="1" checked></div></div></form></div></div></div><div id="w5" class="card shadow mb-2"><div class="card-body"><a id="w3" class="btn btn-primary mb-2" href="/time-table/print?serviceId=group" target="_blank"><i class="fas fa-print"></i> </a><div id="time-tablew4"><div class="table-container"><table class="table lesson-color-block" id="timeTable"><tr><th class="headday">Пн</th><th class="headdate"><div>04.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Вт</th><th class="headdate"><div>05.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Ср</th><th class="headdate"><div>06.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Чт</th><th class="headdate"><div>07.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Пт</th><th class="headdate"><div>08.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Сб</th><th class="headdate"><div>09.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr><tr><th class="headday">Нд</th><th class="headdate"><div>10.01.2027</div></th></tr><tr>                    <th class="headcol">
+                        <span class="lesson">1 пара</span>
+                        <span class="start">09:00</span>
+                        <span class="end">10:20</span>
+                    </th><td><div class="cell">&nbsp</div></td></tr></table></div></div></div></div>
+<div id="modal-view" class="fade modal" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="modal-view-label">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 id="modal-view-label" class="modal-title">Оголошення</h5>
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+
+</div>
+
+</div>
+</div>
+</div>
+<div id="modal-information" class="fade modal" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="modal-information-label">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 id="modal-information-label" class="modal-title">Інформація для студентів</h5>
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+
+</div>
+
+</div>
+</div>
+</div>        </div>
+    </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © 2008-2026 <a target="_blank" href="http://mkr.org.ua"> ООО "МКР" (http://mkr.org.ua)</a>. <b>Версія</b> 2.5.4</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+    <div id="spinner" class="mkr-spinner card shadow mb-2" style="display:none"><div class="card-body"><div class="spinner-border" role="status"><span class="sr-only">Завантаження...</span></div></div></div></div>
+
+<script src="/assets/2774c4db/jquery.min.js?v=1730882535"></script>
+<script src="/assets/fe669208/js/select2.full.min.js?v=1676456992"></script>
+<script src="/assets/d2b26d95/moment.min.js?v=1728119561"></script>
+<script src="/assets/3b8e43c3/uk.js?v=1728119561"></script>
+<script src="/assets/15d563e2/daterangepicker.js?v=1590309201"></script>
+<script src="/assets/4afb6611/js/bootstrap4-toggle.min.js?v=1676457021"></script>
+<script src="/assets/84e4d223/js/bootstrap.bundle.min.js?v=1686221176"></script>
+<script src="/assets/3955a8e9/noty.min.js?v=1676457020"></script>
+<script src="/assets/13b786a9/yii.js?v=1728119552"></script>
+<script src="/assets/bd7b5e7/sb-admin-2.min.js?v=1698212239"></script>
+<script src="/assets/2ae3275d/eusign.js?v=1689146718"></script>
+<script src="/assets/2ae3275d/es6-promise.auto.min.js?v=1689579171"></script>
+<script src="/assets/2ae3275d/jspdf.umd.min.js?v=1689579171"></script>
+<script src="/assets/2ae3275d/html2canvas.js?v=1689579171"></script>
+<script src="/assets/2ae3275d/html2pdf.min.js?v=1689579171"></script>
+<script>                $(document).on('change', 
+                '#filter-form .filter-form-fields-content select:not(:last,.submit), #filter-form .filter-form-fields-content div:not(.not-submit) select:not(:last,.submit)', function(){
+            
+                var form  = $(this).closest('form');
+                var url = form.attr('action');
+                
+                $('#filter-form .filter-form-fields-content select:last, #filter-form .filter-form-fields-content div:not(.not-submit) select:last').val('');
+        
+                $.ajax({
+                    type: 'POST',
+                    url:  url,
+                    data: form.serialize(),
+                    success:function(data){
+                        $(form).html($('#filter-form', data).html());
+                        $('#filter-form-extra').html('');
+                        
+                        initSelect2({'theme' : 'bootstrap4'})
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        if (jqXHR.status == 500) {
+                            alert( 'Internal error: ' + jqXHR.responseText)
+                        } else {
+                            if (jqXHR.status == 403) {
+                                alert('Access error: ' + jqXHR.responseText)
+                            } else {
+                                alert('Unexpected error.')
+                            }
+                        }
+                    }
+                });
+            });
+        
+            $(document).on('change', '#filter-form .filter-form-fields-content select:last, #filter-form .filter-form-fields-content div:not(.not-submit) select:last, #filter-form .submit', function(){
+                $(this).closest('form').submit();
+            });
+            
+            function initSelect2(options){
+                $('.select2-field').each(function (){
+                    let optionsTmp = options;
+                    optionsTmp['placeholder'] = $(this).attr('placeholder');
+                    $(this).select2(optionsTmp);
+                })
+            }
+            $(document).on('click','#w3',
+                function(e){
+                    e.preventDefault();
+                    let form = $("#filter-form");
+                    let action=form.attr("action");
+                    form.attr("action", $(this).attr('href'));
+                    form.submit();
+                    form.attr("action", action);
+                }
+            );
+            $(function () {
+                $('[data-toggle="popover"]').popover({
+                    html:true
+                })
+                
+                $('body').on('click', function (e) {
+                    $('[data-toggle="popover"]').each(function () {
+                        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                            $(this).popover('hide');
+                        }
+                    });
+                });
+            });            var modalViewAds = $('#modal-view');
+            $('.btn-show-ads').click(function(e){
+                e.preventDefault();
+                let button = $(this);
+                $.ajax({
+                    url: '/time-table/show-ads?r1='+button.data('r1')+'&r2='+button.data('r2'),
+                    dataType: 'json',
+                    method:'GET',
+                    success: function(data) {
+                        $('#modal-view .modal-body').html(data.html)
+                        modalViewAds.modal('show');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        new Noty({
+                            type: 'error',
+                            layout: 'topRight',
+                            timeout: 5000,
+                            text: jqXHR.responseText
+                        }).show();
+                    }
+                });
+            });            var modalView = $('#modal-information');
+            $('.btn-show-information ').click(function(e){
+                e.preventDefault();
+                let button = $(this);
+                $.ajax({
+                    url: '/time-table/show-information?p1='+button.data('p1'),
+                    dataType: 'json',
+                    method:'GET',
+                    success: function(data) {
+                        
+               //         console.log(data);
+                        
+                        $('#modal-information .modal-body').html(data.html)
+                        modalView.modal('show');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        new Noty({
+                            type: 'error',
+                            layout: 'topRight',
+                            timeout: 5000,
+                            text: jqXHR.responseText
+                        }).show();
+                    }
+                });
+            });
+jQuery(document).on('pjax:start', function() { $('#spinner').show(); });
+jQuery(document).on('pjax:end',   function() { $('#spinner').hide();  });                    
+jQuery(document).on('ajaxStart',    function() { $('#spinner').show(); });
+jQuery(document).on('ajaxComplete', function() { $('#spinner').hide();  });                    </script>
+<script>jQuery(function ($) {
+;jQuery('#timetableform-structureid').select2({"placeholder":"--Структура--","theme":"bootstrap4"});
+;jQuery('#timetableform-facultyid').select2({"placeholder":"--Факультет--","theme":"bootstrap4"});
+;jQuery('#timetableform-course').select2({"placeholder":"--Курс--","theme":"bootstrap4"});
+;jQuery('#timetableform-groupid').select2({"placeholder":"--Група--","theme":"bootstrap4"});
+$('#timetableform-datestart').daterangepicker({"timePicker":false,"timePicker12Hour":false,"separator":" - ","autoUpdateInput":false,"singleDatePicker":false,"ranges":{"Семестр":[moment("2026-09-07 00:00:00"), moment("2026-12-31 00:00:00")],"Поточний місяць":[moment().startOf("month"), moment().endOf("month")],"Наступний місяць":[moment().add(1,"months").startOf("month"), moment().add(1,"months").endOf("month")],"Поточний тиждень":[moment().startOf("week"), moment().endOf("week")],"Наступний тиждень":[moment().add(1,"weeks").startOf("week"), moment().add(1,"weeks").endOf("week")]},"locale":{"format":"DD.MM.YYYY","applyLabel":"Обрати","cancelLabel":"Скасувати","fromLabel":"З","toLabel":"До","weekLabel":"Т","customRangeLabel":"Свій період"},"startDate":"04.01.2027","endDate":"10.01.2027"});
+$('#timetableform-datestart').val('04.01.2027 - 10.01.2027');
+$('#timetableform-datestart').on('apply.daterangepicker', function (event, picker) {
+                        var form = $(picker.element[0]).closest('form');
+                        var start = picker.startDate.format('dd.MM.yyyy'.toUpperCase());
+                        var end = picker.endDate.format('dd.MM.yyyy'.toUpperCase());
+                        
+                        $('#timetableform-datestart').val(start + ' - ' + end);
+                        form.find("input[name*='dateStart']").val(start);
+                        form.find("input[name*='dateEnd']").val(end);
+                                            form.submit();
+                    }).on('cancel.daterangepicker', function (event, picker) {
+                        var form = $(picker.element[0]).closest('form');
+                        $('#timetableform-datestart').val('');
+                        form.find("input[name *= 'dateStart']").val('');
+                        form.find("input[name *= 'dateEnd']").val('');
+                    })
+jQuery('#w0').bootstrapToggle({"on":"Табличний вигляд","off":"Календарний вид","size":"sm","onstyle":"warning","offstyle":"info","width":200,"height":38,"class":"submit"});
+jQuery('#w0').on('change',                 function () {
+                    var form = $(this).closest('form');
+                    var url = '';
+                    if($(this).prop('checked'))
+                        url = '/time-table/group?type=0';
+                    else 
+                        url = '/time-table/group?type=1';
+        
+                    form.attr('action', url);
+                    form.submit();
+                });
+jQuery('#modal-view').modal({"show":false});
+jQuery('#modal-information').modal({"show":false});
+moment.locale('uk')
+});</script></body>
+</html>
