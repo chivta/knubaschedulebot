@@ -41,6 +41,9 @@ const (
 
 	// supportContact is who the bot must send strangers to.
 	supportContact = "@ukbotsup"
+
+	// fakeUsername is the username tgfake gives every user it invents.
+	fakeUsername = "tester"
 )
 
 // TestStrangerIsSentToSupport is the one that matters most. The bot's username
@@ -135,6 +138,56 @@ func TestAdminManagesAllowList(t *testing.T) {
 
 		h.fake.SendCommand(userID, "/start")
 		h.waitForMessageTo(userID, supportContact)
+	})
+}
+
+// TestAllowListByUsername covers the other way onto the allow list: by tag.
+// Every user of the fake carries the username in fakeUsername.
+func TestAllowListByUsername(t *testing.T) {
+	h := startBot(t)
+
+	h.fake.SendCommand(strangerID, "/start")
+	h.waitForMessageTo(strangerID, supportContact)
+
+	// Telegram usernames are case-insensitive, and admins type them with "@".
+	h.fake.SendCommand(adminID, "/allow @"+strings.ToUpper(fakeUsername))
+
+	h.waitForMessageTo(adminID, "додано")
+	if !h.isUsernameAllowed(fakeUsername) {
+		t.Fatalf("the allowed username is not in the store")
+	}
+
+	t.Run("the holder of the username gets in", func(t *testing.T) {
+		h.fake.SendCommand(strangerID, "/start")
+
+		h.waitForMessageTo(strangerID, "факультет")
+	})
+
+	t.Run("the list shows the username", func(t *testing.T) {
+		h.fake.SendCommand(adminID, "/users")
+
+		h.waitForMessageTo(adminID, "@"+fakeUsername)
+	})
+
+	t.Run("a malformed username is explained, not stored", func(t *testing.T) {
+		h.fake.SendCommand(adminID, "/allow @no")
+
+		h.waitForMessageTo(adminID, "Вкажіть ID або тег")
+		if h.isUsernameAllowed("no") {
+			t.Errorf("a malformed username reached the store")
+		}
+	})
+
+	t.Run("a removed username is locked out again", func(t *testing.T) {
+		h.fake.SendCommand(adminID, "/deny @"+fakeUsername)
+
+		h.waitForMessageTo(adminID, "прибрано")
+		if h.isUsernameAllowed(fakeUsername) {
+			t.Fatalf("the removed username is still in the store")
+		}
+
+		h.fake.SendCommand(strangerID, "/start")
+		h.waitForMessages(strangerID, supportContact, 2)
 	})
 }
 
@@ -381,6 +434,16 @@ func (h *harness) isAllowed(id int64) bool {
 
 	var count int
 	h.queryRow(&count, `SELECT COUNT(*) FROM allowed_users WHERE telegram_id = ?`, id)
+
+	return count > 0
+}
+
+// isUsernameAllowed reads the username half of the allow list from the store.
+func (h *harness) isUsernameAllowed(username string) bool {
+	h.t.Helper()
+
+	var count int
+	h.queryRow(&count, `SELECT COUNT(*) FROM allowed_usernames WHERE username = ?`, username)
 
 	return count > 0
 }

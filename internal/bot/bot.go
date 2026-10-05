@@ -48,12 +48,16 @@ type userStore interface {
 	SetGroup(ctx context.Context, userID int64, group domain.Group) error
 }
 
-// accessStore is the allow list that admins edit at runtime.
+// accessStore is the allow list that admins edit at runtime. A user is on it
+// by Telegram ID or by username; usernames are lowercase without the "@".
 type accessStore interface {
-	IsAllowed(ctx context.Context, userID int64) (bool, error)
+	IsAllowed(ctx context.Context, userID int64, username string) (bool, error)
 	Allow(ctx context.Context, userID, addedBy int64) error
 	Revoke(ctx context.Context, userID int64) error
 	List(ctx context.Context) ([]int64, error)
+	AllowUsername(ctx context.Context, username string, addedBy int64) error
+	RevokeUsername(ctx context.Context, username string) error
+	ListUsernames(ctx context.Context) ([]string, error)
 }
 
 // Settings is what the bot needs from configuration.
@@ -195,7 +199,7 @@ func (b *Bot) requireAccess(next tele.HandlerFunc) tele.HandlerFunc {
 			return nil
 		}
 
-		allowed, err := b.allows(sender.ID)
+		allowed, err := b.allows(sender)
 		if err != nil {
 			return b.fail(c, err)
 		}
@@ -240,13 +244,14 @@ func (b *Bot) acknowledge(next tele.HandlerFunc) tele.HandlerFunc {
 }
 
 // allows reports whether a user may use the bot. Admins come from
-// configuration and are never looked up in the store.
-func (b *Bot) allows(userID int64) (bool, error) {
-	if b.isAdmin[userID] {
+// configuration and are never looked up in the store. Everyone else is on the
+// allow list by ID or by their current username.
+func (b *Bot) allows(user *tele.User) (bool, error) {
+	if b.isAdmin[user.ID] {
 		return true, nil
 	}
 
-	return b.access.IsAllowed(b.ctx, userID)
+	return b.access.IsAllowed(b.ctx, user.ID, normalizeUsername(user.Username))
 }
 
 // deny tells a user outside the allow list whom to write to. Their ID is in

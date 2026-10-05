@@ -57,8 +57,8 @@ const (
 		"/group змінити групу\n\n" +
 		"Розклад береться з mkr.knuba.edu.ua й оновлюється раз на годину."
 	textHelpAdmin = "\n\n<b>Адміністрування</b>\n" +
-		"/allow <code>ID</code> додати користувача до білого списку\n" +
-		"/deny <code>ID</code> прибрати користувача\n" +
+		"/allow <code>ID</code> або <code>@тег</code> додати користувача до білого списку\n" +
+		"/deny <code>ID</code> або <code>@тег</code> прибрати користувача\n" +
 		"/users показати білий список"
 
 	// textDenied takes the support contact and the sender's Telegram ID, which
@@ -69,30 +69,37 @@ const (
 	// textDeniedAlert is the popup shown when a denied user taps a button.
 	textDeniedAlert = "Немає доступу. Напишіть %s."
 
-	// The admin texts below take a Telegram user ID.
-	textAllowUsage      = "Вкажіть ID користувача: <code>/allow 123456789</code>"
-	textDenyUsage       = "Вкажіть ID користувача: <code>/deny 123456789</code>"
-	textAllowed         = "✅ Користувача <code>%d</code> додано до білого списку."
-	textRevoked         = "🚫 Користувача <code>%d</code> прибрано з білого списку."
-	textNotOnList       = "Користувача <code>%d</code> немає в білому списку."
-	textIsAdmin         = "Користувач <code>%d</code> є адміністратором. Адміністраторів задає конфігурація бота."
-	textAccessGranted   = "✅ Вам надано доступ до бота. Натисніть /start."
-	textUsersAdmins     = "<b>Адміністратори</b>"
-	textUsersAllowed    = "<b>Білий список</b>"
-	textUsersNone       = "порожньо"
-	textUserLine        = "<code>%d</code>"
-	textDayHeader       = "📅 <b>%s, %d %s</b> · %s"
-	textDayEmpty        = "Пар немає 🎉"
-	textLessonHeader    = "<b>%d пара</b> · %s-%s"
-	textLessonSubject   = "%s <i>(%s)</i>"
-	textLessonRoom      = "📍 %s"
-	textLessonGroups    = "👥 %s"
-	textDetailSeparator = " · "
-	textWeekHeader      = "🗓 <b>Тиждень %s-%s</b> · %s"
-	textWeekEmpty       = "На цьому тижні пар немає 🎉"
-	textWeekDay         = "<b>%s, %s</b>"
-	textWeekLesson      = "%d. %s %s"
-	textWeekTruncated   = "… Решта днів не вмістилася. Відкрийте їх окремо кнопкою «Сьогодні»."
+	textAllowUsage = "Вкажіть ID або тег користувача, наприклад " +
+		"<code>/allow 123456789</code> чи <code>/allow @username</code>"
+	textDenyUsage = "Вкажіть ID або тег користувача, наприклад " +
+		"<code>/deny 123456789</code> чи <code>/deny @username</code>"
+	// The admin texts below take a Telegram user ID, or a username without
+	// the "@" for the ones named after it.
+	textAllowed           = "✅ Користувача <code>%d</code> додано до білого списку."
+	textRevoked           = "🚫 Користувача <code>%d</code> прибрано з білого списку."
+	textNotOnList         = "Користувача <code>%d</code> немає в білому списку."
+	textAllowedUsername   = "✅ Користувача @%s додано до білого списку."
+	textRevokedUsername   = "🚫 Користувача @%s прибрано з білого списку."
+	textUsernameNotOnList = "Користувача @%s немає в білому списку."
+	textUsernameLine      = "@%s"
+	textIsAdmin           = "Користувач <code>%d</code> є адміністратором. Адміністраторів задає конфігурація бота."
+	textAccessGranted     = "✅ Вам надано доступ до бота. Натисніть /start."
+	textUsersAdmins       = "<b>Адміністратори</b>"
+	textUsersAllowed      = "<b>Білий список</b>"
+	textUsersNone         = "порожньо"
+	textUserLine          = "<code>%d</code>"
+	textDayHeader         = "📅 <b>%s, %d %s</b> · %s"
+	textDayEmpty          = "Пар немає 🎉"
+	textLessonHeader      = "<b>%d пара</b> · %s-%s"
+	textLessonSubject     = "%s <i>(%s)</i>"
+	textLessonRoom        = "📍 %s"
+	textLessonGroups      = "👥 %s"
+	textDetailSeparator   = " · "
+	textWeekHeader        = "🗓 <b>Тиждень %s-%s</b> · %s"
+	textWeekEmpty         = "На цьому тижні пар немає 🎉"
+	textWeekDay           = "<b>%s, %s</b>"
+	textWeekLesson        = "%d. %s %s"
+	textWeekTruncated     = "… Решта днів не вмістилася. Відкрийте їх окремо кнопкою «Сьогодні»."
 )
 
 // shortDateLayout is the day.month form used in buttons and week headers.
