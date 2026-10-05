@@ -1,0 +1,16 @@
+# kube-prometheus-stack runs with serviceMonitorSelectorNilUsesHelmValues:
+# false, so no release label is needed for it to pick this up.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: knubaschedulebot
+  namespace: knubaschedulebot
+  labels:
+    app: knubaschedulebot
+spec:
+  selector:
+    matchLabels:
+      app: knubaschedulebot
+  endpoints:
+    - port: http
+      path: /metrics

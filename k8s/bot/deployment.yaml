@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knubaschedulebot
+  namespace: knubaschedulebot
+  labels:
+    app: knubaschedulebot
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  # The SQLite file lives on a ReadWriteOnce volume, so the old pod must be gone
+  # before the new one starts. A rolling update would deadlock on the mount.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: knubaschedulebot
+  template:
+    metadata:
+      labels:
+        app: knubaschedulebot
+    spec:
+      # Covers the long poll that is in flight when the pod is told to stop,
+      # plus a schedule request that is still waiting on the site.
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      containers:
+        - name: knubaschedulebot
+          # Rewritten by the CD workflow on every deploy. The sed there matches
+          # this exact shape, so keep it on one line.
+          image: ghcr.io/chivta/knubaschedulebot:placeholder
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: app-secrets
+          env:
+            - name: DB_PATH
+              value: /app/data/knubaschedulebot.db
+            - name: REDIS_URL
+              value: redis://redis:6379/0
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+            # readOnlyRootFilesystem still needs somewhere to write scratch.
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          # The bot does no slow startup work; 30s is ample before liveness
+          # takes over.
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 10
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: knubaschedulebot
+        - name: tmp
+          emptyDir: { sizeLimit: 1Gi }
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knubaschedulebot-svc
+  namespace: knubaschedulebot
+  labels:
+    app: knubaschedulebot
+spec:
+  selector:
+    app: knubaschedulebot
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
