@@ -38,14 +38,13 @@ const (
 )
 
 const (
-	textWelcome = "👋 Вітаю! Я показую розклад КНУБА з mkr.knuba.edu.ua.\n\n" +
-		"Спершу оберіть свій факультет."
-	textChooseFaculty = "Оберіть факультет."
+	textWelcome       = "👋 Вітаю! Я показую розклад КНУБА з mkr.knuba.edu.ua."
+	textChooseFaculty = "Оберіть свій факультет."
 	textChooseCourse  = "Оберіть курс."
 	textChooseGroup   = "Оберіть групу."
 	textGroupFirst    = "Спершу оберіть групу. Який у вас факультет?"
 	// textGroupSaved and textMenu take the group name.
-	textGroupSaved = "✅ Групу <b>%s</b> збережено.\n\nРозклад відкривають кнопки нижче."
+	textGroupSaved = "✅ Групу <b>%s</b> збережено.\n\nЩо показати?"
 	textMenu       = "Ваша група: <b>%s</b>.\n\nРозклад відкривають кнопки нижче."
 	textUnknown    = "Не розумію це повідомлення. Скористайтеся кнопками нижче або командою /help."
 

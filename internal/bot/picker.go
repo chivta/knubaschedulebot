@@ -10,7 +10,8 @@ import (
 )
 
 // The group picker walks the same three steps as the form on the schedule
-// site: faculty, course, group. Each step rewrites the picker message in place.
+// site: faculty, course, group. Every step rewrites the picker message in
+// place, and so does the confirmation at the end.
 
 // handleChooseGroup opens the picker, from the menu or from its "back" button.
 func (b *Bot) handleChooseGroup(c tele.Context) error {
@@ -59,7 +60,8 @@ func (b *Bot) handleCourse(c tele.Context) error {
 	return b.render(c, textChooseGroup, groupKeyboard(facultyID, course, groups))
 }
 
-// handleGroup saves the tapped group for the sender and hands over the menu.
+// handleGroup saves the tapped group for the sender and turns the picker into
+// the confirmation, with schedule shortcuts where the group list was.
 func (b *Bot) handleGroup(c tele.Context) error {
 	args, err := intArgs(c, 3)
 	if err != nil {
@@ -86,23 +88,7 @@ func (b *Bot) handleGroup(c tele.Context) error {
 
 	log.Info().Int64("user_id", c.Sender().ID).Int("group_id", group.ID).Msg("user picked a group")
 
-	b.removePicker(c)
-
-	return b.send(c, fmt.Sprintf(textGroupSaved, escape(group.Name)), mainMenu())
-}
-
-// removePicker deletes the picker message once it has done its job, so the
-// chat keeps one confirmation rather than a dead keyboard above it.
-func (b *Bot) removePicker(c tele.Context) {
-	err := b.sends.wait(b.ctx)
-	if err != nil {
-		return
-	}
-
-	err = c.Delete()
-	if err != nil {
-		log.Debug().Err(err).Msg("failed to delete the group picker")
-	}
+	return b.render(c, fmt.Sprintf(textGroupSaved, escape(group.Name)), scheduleMenu())
 }
 
 // findGroup picks a group out of a course listing by ID.

@@ -31,7 +31,7 @@ const (
 
 	// pickerMessageID is the message the test pretends the inline keyboard is
 	// attached to. The fake does not hand out the IDs of sent messages, and the
-	// bot only echoes this one back when it edits or deletes the picker.
+	// bot only echoes this one back when it edits the picker.
 	pickerMessageID = int64(777)
 
 	// replyWait is generous relative to a local round trip, so a slow CI
@@ -198,6 +198,15 @@ func TestPickGroupAndReadSchedule(t *testing.T) {
 
 	h.fake.SendCommand(adminID, "/start")
 
+	// The greeting is what brings the menu keyboard under the input field.
+	welcome, err := h.fake.WaitForCall("sendMessage", "text", "Вітаю", replyWait)
+	if err != nil {
+		t.Fatalf("no greeting: %v", err)
+	}
+	if keyboard := welcome.Text("reply_markup"); !strings.Contains(keyboard, "Сьогодні") {
+		t.Errorf("the greeting does not carry the menu keyboard: %q", keyboard)
+	}
+
 	faculties, err := h.fake.WaitForCall("sendMessage", "text", "факультет", replyWait)
 	if err != nil {
 		t.Fatalf("no faculty picker: %v", err)
@@ -222,17 +231,33 @@ func TestPickGroupAndReadSchedule(t *testing.T) {
 	}
 	h.click(adminID, groups, siteGroupName)
 
-	saved := h.waitForMessageTo(adminID, "збережено")
-	if !strings.Contains(saved, siteGroupName) {
-		t.Errorf("the confirmation does not name the group: %q", saved)
+	// The picker itself turns into the confirmation. A new message here would
+	// leave a dead keyboard above it.
+	saved, err := h.fake.WaitForCall("editMessageText", "text", "збережено", replyWait)
+	if err != nil {
+		t.Fatalf("the picker was not turned into a confirmation: %v", err)
+	}
+	if !strings.Contains(saved.Text("text"), siteGroupName) {
+		t.Errorf("the confirmation does not name the group: %q", saved.Text("text"))
+	}
+	if saved.Int("message_id") != pickerMessageID {
+		t.Errorf("the confirmation edited message %d, want the picker %d", saved.Int("message_id"), pickerMessageID)
+	}
+	if h.fake.IndexOf("sendMessage", "text", "збережено") >= 0 {
+		t.Errorf("the confirmation was also sent as a new message")
 	}
 	if group := h.storedGroup(adminID); group != siteGroupID {
 		t.Fatalf("stored group %d, want %d", group, siteGroupID)
 	}
-	err = h.fake.WaitForDelete(adminID, pickerMessageID, replyWait)
-	if err != nil {
-		t.Errorf("the finished picker was left in the chat: %v", err)
-	}
+
+	t.Run("today from the button under the confirmation", func(t *testing.T) {
+		h.click(adminID, saved, "Сьогодні")
+
+		today := h.waitForCalls("editMessageText", "text", siteSubject, 1)
+		if !strings.Contains(today.Text("text"), "09:00-10:20") {
+			t.Errorf("today lacks the class time: %q", today.Text("text"))
+		}
+	})
 
 	t.Run("today from the menu button", func(t *testing.T) {
 		h.fake.SendText(adminID, "📅 Сьогодні")
@@ -272,10 +297,9 @@ func TestPickGroupAndReadSchedule(t *testing.T) {
 		}
 		h.click(adminID, day, "▶")
 
-		_, err = h.fake.WaitForCall("editMessageText", "text", siteSubject, replyWait)
-		if err != nil {
-			t.Fatalf("the next day was not shown: %v", err)
-		}
+		// The second edit showing a class: the first came from the button
+		// under the confirmation.
+		h.waitForCalls("editMessageText", "text", siteSubject, 2)
 	})
 }
 
@@ -393,6 +417,30 @@ func (h *harness) waitForMessages(chatID int64, want string, count int) string {
 		if time.Now().After(deadline) {
 			h.t.Fatalf("chat %d got %d messages containing %q, want %d; it got: %q",
 				chatID, len(matching), want, count, h.fake.MessagesTo(chatID))
+		}
+		time.Sleep(pollTick)
+	}
+}
+
+// waitForCalls blocks until the bot has made at least count calls to method
+// whose param contains want, and returns the latest.
+func (h *harness) waitForCalls(method, param, want string, count int) tgfake.Call {
+	h.t.Helper()
+
+	deadline := time.Now().Add(replyWait)
+	for {
+		var matching []tgfake.Call
+		for _, call := range h.fake.Calls() {
+			if call.Method == method && strings.Contains(call.Text(param), want) {
+				matching = append(matching, call)
+			}
+		}
+		if len(matching) >= count {
+			return matching[len(matching)-1]
+		}
+
+		if time.Now().After(deadline) {
+			h.t.Fatalf("got %d %s calls with %s containing %q, want %d", len(matching), method, param, want, count)
 		}
 		time.Sleep(pollTick)
 	}

@@ -26,10 +26,14 @@ const (
 	// cbToday opens the current day, resolved when tapped rather than when the
 	// button was drawn, so an old message still jumps to the real today.
 	cbToday = "today"
+	// cbTomorrow opens the day after the current one, resolved when tapped.
+	cbTomorrow = "tomorrow"
 	// cbWeek carries a Monday in domain.DateLayout and opens that week.
 	cbWeek = "week"
 	// cbThisWeek opens the current week, resolved when tapped.
 	cbThisWeek = "thisweek"
+	// cbNextWeek opens the week after the current one, resolved when tapped.
+	cbNextWeek = "nextweek"
 )
 
 // groupsPerRow is how many group buttons share a row. Group names are short,
@@ -43,6 +47,18 @@ func mainMenu() *tele.ReplyMarkup {
 		menu.Row(menu.Text(btnToday), menu.Text(btnTomorrow)),
 		menu.Row(menu.Text(btnWeek), menu.Text(btnNextWeek)),
 		menu.Row(menu.Text(btnGroup)),
+	)
+
+	return menu
+}
+
+// scheduleMenu is the inline counterpart of mainMenu. It replaces the group
+// list once a group is saved, so the picker message turns into the way in.
+func scheduleMenu() *tele.ReplyMarkup {
+	menu := &tele.ReplyMarkup{}
+	menu.Inline(
+		menu.Row(menu.Data(btnToday, cbToday), menu.Data(btnTomorrow, cbTomorrow)),
+		menu.Row(menu.Data(btnWeek, cbThisWeek), menu.Data(btnNextWeek, cbNextWeek)),
 	)
 
 	return menu

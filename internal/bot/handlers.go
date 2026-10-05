@@ -17,7 +17,16 @@ import (
 func (b *Bot) handleStart(c tele.Context) error {
 	group, err := b.users.Group(b.ctx, c.Sender().ID)
 	if errors.Is(err, domain.ErrNotFound) {
-		return b.showFaculties(c, textWelcome)
+		// Two messages on purpose. The greeting brings the menu keyboard, which
+		// only a new message can deliver. The picker is its own message because
+		// it is edited in place from here on, and an edit cannot carry a
+		// keyboard of that kind.
+		err = b.send(c, textWelcome, mainMenu())
+		if err != nil {
+			return err
+		}
+
+		return b.showFaculties(c, textChooseFaculty)
 	}
 	if err != nil {
 		return b.fail(c, err)

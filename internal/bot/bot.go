@@ -153,8 +153,10 @@ func (b *Bot) Run(ctx context.Context) error {
 	buttons.Handle(&tele.Btn{Unique: cbGroup}, b.handleGroup)
 	buttons.Handle(&tele.Btn{Unique: cbDay}, b.handleDay)
 	buttons.Handle(&tele.Btn{Unique: cbToday}, b.handleToday)
+	buttons.Handle(&tele.Btn{Unique: cbTomorrow}, b.handleTomorrow)
 	buttons.Handle(&tele.Btn{Unique: cbWeek}, b.handleWeekOf)
 	buttons.Handle(&tele.Btn{Unique: cbThisWeek}, b.handleWeek)
+	buttons.Handle(&tele.Btn{Unique: cbNextWeek}, b.handleNextWeek)
 
 	admin := b.bot.Group()
 	admin.Use(b.requireAdmin)
