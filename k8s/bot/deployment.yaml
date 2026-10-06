@@ -32,7 +32,7 @@ spec:
         - name: knubaschedulebot
           # Rewritten by the CD workflow on every deploy. The sed there matches
           # this exact shape, so keep it on one line.
-          image: ghcr.io/chivta/knubaschedulebot:2583ce5c504b4469c121ebd572103022562c9a98
+          image: ghcr.io/chivta/knubaschedulebot:db3ae037408c94b084b3c390f149a6229acb1ab0
           ports:
             - name: http
               containerPort: 8080
